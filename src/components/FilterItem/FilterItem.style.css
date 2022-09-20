@@ -1,0 +1,11 @@
+.filterinput{
+    width:10%;
+    margin:22px;
+}
+.selectfilter{
+    width:80px;
+    height:30px;
+    border:0;
+    border: 3px solid rgb(174, 131, 214);
+    border-radius:8px;
+}

@@ -1,70 +1,39 @@
 import './App.css';
-import React , { useState } from 'react'
+import React, { useState } from 'react'
+import Form from './components/Form/Form';
+import InputSearch from './components/InputSearch/InputSearch';
+import Table from './components/Table/Table';
+import FilterItem from './components/FilterItem/FilterItem';
+
 
 function App() {
+  const [user, setUser] = useState([
+    { id: 1, userimage: 'img', name: 'Jack', email: 'jack@gmail.com', age: '34', phone: 457801, country: 'England', favorite: false },
+    { id: 2, userimage: 'img', name: 'Jain', email: 'jain@gmail.com', age: '67', phone: 678543, country: 'German', favorite: true },
+    { id: 3, userimage: 'img', name: 'Katy', email: 'katy@gmail.com', age: '21', phone: 334567, country: 'Japan', favorite: false }
+  ])
+  const [form, setForm] = useState({
+    id: "0",
+    userProfile: "img",
+    name: "",
+    email: "",
+    phone: "",
+    age: "",
+    country: "",
+    favorite: false,
+  })
+  const [mode, setMode] = useState('add');
+  const [status, setStatus] = useState('all');
+  const [filter, setFilter] = useState([]);
+  const [search, setSearch] = useState("");
 
-  const [todo, setTodo] = useState([{ id: 1, title:'buy', state: true, des: 'start' }, 
-  { id: 2, title: 'buy', state: true, des: 'new' }, 
-  { id: 3, title: 'buy', state: false, des: 'old' }
-  ]);
-  const [form,setForm] =useState({title:"",des:""});
-  const [mode,setMode] =useState('add');
-  const deleteHandler=(id)=>{
-    setTodo(todo.filter(item => item.id !== id));
-  }
-  const checkHandler =(id)=>{
-    setTodo(todo.map(todo =>(
-      todo.id === id ? {...todo,state:!todo.state}:todo
-    )))
-  }
-  const inputHandler =(e)=>{
-    setForm({...form,[e.target.name]:e.target.value})
-  }
-  const addHandler =(e)=>{
-    e.preventDefault();
-    if(mode==='add'){
-      setTodo([...todo,{id:Math.floor(Math.random()*1000),title:form.title,des:form.des,state:false}])
-    }
-    else{
-      setTodo(todo.map(todo => todo.id === form.id ? form : todo))
-    }
-    setForm({
-      title:'',
-      des:''
-    })
-    setMode('add');
-  }
-  const updateHandler =(todo)=>{
-    setForm(todo);
-    setMode('update');
-  }
   return (
     <div>
-        <form>
-          <input onChange={inputHandler} name='title'/>
-          <input onChange={inputHandler} name='des'/>
-          <button type={"submit"} onClick={addHandler}>submit</button>
-        </form>
-        {todo.map(todo =>(
-          <div style={{border:"1px solid green",margin:"20px", padding:"10px"}}>
-            <div>
-              id:{todo.id}
-            </div>
-            <div>
-             title:{todo.title}
-            </div>
-            <div onClick={()=>checkHandler(todo.id)}>
-             state:{todo.state ? 'done':'Notdone'}
-            </div>
-            <div>
-              des:{todo.des}
-            </div>
-            <button onClick={()=>deleteHandler(todo.id)}>delete</button>
-            <button onClick={()=>updateHandler(todo.id)}>update</button>
-          </div>
-        ))}
-    </div>
+      <Form user={user} form={form} mode={mode} setUser={setUser} setForm={setForm} setMode={setMode} />
+      <InputSearch setSearch={setSearch} />
+      <FilterItem setStatus={setStatus} status={status} user={user} setFilter={setFilter} />
+      <Table user={user} setUser={setUser} setForm={setForm} setMode={setMode} filter={filter} search={search} />
+    </div >
   );
 }
-
 export default App;

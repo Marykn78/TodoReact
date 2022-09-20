@@ -1,0 +1,51 @@
+table {
+    table-layout: fixed;
+    width: 100%;
+    border-collapse: collapse;
+    border: 3px solid rgb(174, 131, 214);
+  }
+  
+  thead th{
+    width:5%;
+  }
+  tbody td{
+    width:5%;
+  }
+  
+  th {
+    letter-spacing: 2px;
+  }
+  
+  td {
+    letter-spacing: 1px;
+  }
+  
+  tbody td {
+    text-align: center;
+  }
+  
+  th,
+  td {
+    padding: 15px;
+  }
+
+  @media only screen and (max-width:612px) {
+    .table{
+      font-size:small;
+    }
+    .hidden{
+      display: none;
+    }
+    thead th{
+      width:auto;
+    }
+    tbody td{
+      width:auto;
+    }
+    th,
+    td {
+      padding:2px;
+    }
+}
+
+ 
